@@ -119,18 +119,27 @@ fetch("../js/data.json")
     }
 
     function order() {
-        var e = document.getElementById("select")
-        e.addEventListener("change", function() {
-            value = e.options[e.selectedIndex].value;
-    
-            if (value == "Menor a Mayor") {
-                let data = productos.sort((a,b) => a.precio - b.precio)
-                filterFunction(data)
-            } else if (value == "Mayor a Menor") {
-                let data = productos.sort((a,b) => b.precio - a.precio)
-                filterFunction(data)
-            }
-        })
+        var e = document.querySelectorAll(".select")
+        e.forEach(select => {
+            select.addEventListener("change", function() {
+                value = select.options[select.selectedIndex].value;
+        
+                if (value == "Menor a Mayor") {
+                    let data = productos.sort((a,b) => a.precio - b.precio)
+                    filterFunction(data)
+                } else if (value == "Mayor a Menor") {
+                    let data = productos.sort((a,b) => b.precio - a.precio)
+                    filterFunction(data)
+                } else if (value == "A - Z") {
+                    let data = productos.sort((a,b) => a.producto.localeCompare(b.producto))
+                    filterFunction(data)
+                } else if (value == "Z - A") {
+                    let data = productos.sort((a,b) => b.producto.localeCompare(a.producto))
+                    filterFunction(data)
+                }
+            })
+            
+        });
     }
 
     function resetDom() {
