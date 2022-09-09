@@ -59,10 +59,19 @@ fetch("../js/data.json")
     search.addEventListener("input",cargarProductos)
 
 
+    order()
+
     cargarProductos()
     
+
+
+
+
+
+    // funciones 
+
     function cargarProductos() {
-        container.innerHTML = ""
+        resetDom()
         
         productos.forEach(producto => {
 
@@ -72,20 +81,12 @@ fetch("../js/data.json")
         });
     }
 
-    let filter = document.getElementById("filter")
-    filter.addEventListener("click",filterFunction)
-
-    function filterFunction(e) {
-        container.innerHTML = ""
-        let productosOrdenados = productos.sort((a,b) => a.precio - b.precio)
-        productosOrdenados.forEach(producto => {
+    function filterFunction(data) {
+        resetDom()
+        data.forEach(producto => {
             pintar(producto)
         });
     }
-
-
-
-    // funciones 
 
     function agregarProductos(e) {
         let agregar = productos.find(producto => producto.id == e.target.id)
@@ -117,6 +118,24 @@ fetch("../js/data.json")
         })
     }
 
+    function order() {
+        var e = document.getElementById("select")
+        e.addEventListener("change", function() {
+            value = e.options[e.selectedIndex].value;
+    
+            if (value == "Menor a Mayor") {
+                let data = productos.sort((a,b) => a.precio - b.precio)
+                filterFunction(data)
+            } else if (value == "Mayor a Menor") {
+                let data = productos.sort((a,b) => b.precio - a.precio)
+                filterFunction(data)
+            }
+        })
+    }
+
+    function resetDom() {
+        container.innerHTML = ""
+    }
 
 })
 

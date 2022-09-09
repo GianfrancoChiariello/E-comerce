@@ -1,10 +1,10 @@
 [
-    {"id":1,"producto":"pelota","precio":2000,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":2,"producto":"camiseta","precio":3000,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":3,"producto":"medias","precio":2460,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":4,"producto":"short","precio":1560,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":5,"producto":"pantalon","precio":8650,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":6,"producto":"casco","precio":2460,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":7,"producto":"ropa","precio":1560,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"},
-    {"id":8,"producto":"felpas","precio":8650,"categoria":"deportivo","imgUrl":"https://picsum.photos/200/400"}
+    {"id":1,"producto":"pelota","precio":2000,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":2,"producto":"camiseta","precio":3000,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":3,"producto":"medias","precio":2460,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":4,"producto":"short","precio":1560,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":5,"producto":"pantalon","precio":8650,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":6,"producto":"casco","precio":2460,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":7,"producto":"ropa","precio":1560,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"},
+    {"id":8,"producto":"felpas","precio":8650,"categoria":"deportivo","imgUrl":"https://source.unsplash.com/random/800x800/?img=1"}
 ]
