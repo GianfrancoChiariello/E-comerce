@@ -64,10 +64,6 @@ fetch("../js/data.json")
     cargarProductos()
     
 
-
-
-
-
     // funciones 
 
     function cargarProductos() {
@@ -103,7 +99,7 @@ fetch("../js/data.json")
     function pintar(producto) {
         let div = document.createElement("div")
         div.classList = "div"
-        div.innerHTML = `<div>
+        div.innerHTML = `<div class="caja">
                 <img src=${producto.imgUrl}>
                 <h1>${producto.producto}</h1>
                 <p>${producto.precio}</p>
