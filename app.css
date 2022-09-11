@@ -4,6 +4,18 @@
   padding: 1rem;
 }
 
+.flexx {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+button {
+  margin: 1rem;
+}
+
 body {
   display: flex;
   flex-direction: column;
