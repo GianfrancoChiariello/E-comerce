@@ -136,7 +136,8 @@ getData().then(productos => {
 fetch("./js/data.json")
 .then(response => response.json())
 .then(productos => {
-        
+    
+    window.addEventListener("load", localRestore)
     const search = document.getElementById("search1")
     search.addEventListener("input",chargeProductDom)
     const container = document.getElementById("container")
@@ -146,9 +147,20 @@ fetch("./js/data.json")
     let cart = []
 
 
+
     chargeProductDom()
     totalCart()
     filterProducts()
+
+    function localRestore() {
+        if (localStorage.getItem("cart") == null) {
+            localStorage.setItem("cart",JSON.stringify(cart))
+        } else {
+            cart = JSON.parse(localStorage.getItem("cart"))
+            loadCart()
+            totalCart()
+        }
+    }
 
     function chargeProductDom() {
         container.innerHTML = ""
@@ -180,6 +192,8 @@ fetch("./js/data.json")
         let add = productos.find(producto => producto.id == e.target.id)
         cart.push(add)
 
+        localStorage.setItem("cart",JSON.stringify(cart))
+
         loadCart()
         totalCart()
     }
@@ -207,6 +221,8 @@ fetch("./js/data.json")
         let delet = cart.find(producto => producto.id == e.target.id)
 
         cart.splice(cart.indexOf(delet),1)
+
+        localStorage.setItem("cart",JSON.stringify(cart))
 
         loadCart()
         totalCart()
@@ -252,8 +268,4 @@ fetch("./js/data.json")
             })
         })
     }
-
-
-
-
 }) 
