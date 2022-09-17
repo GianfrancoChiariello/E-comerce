@@ -1,122 +1,259 @@
-fetch("./js/data.json")
-.then(response => response.json())
-.then(productos => {
-
-    let search = document.getElementById("search1")
-    search.addEventListener("input",loadProductos)
-    let select = document.querySelectorAll(".select")
-    let container = document.getElementById("container")
-    let containerCheck = document.getElementById("containerCheck")
-    let containerTotal = document.getElementById("containerTotal")
-    let carrito = []
+/* const getData = async () => {
+    try {
+        const response = await fetch('./js/data.json');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        alert("Fallo la peticion a la api")
+    }
+}
 
 
-    loadProductos()
 
-    orderProducts()
+getData().then(productos => {
+
+    const search = document.getElementById("search1")
+    search.addEventListener("input",loadProducts)
+    const container = document.getElementById("container")
+    const containerCheck = document.getElementById("containerCheck")
+    const containerTotal = document.getElementById("containerTotal")
+    const select = document.querySelectorAll(".select")
+    let cart = []
+
+    loadProducts()
 
     totalPrice()
 
-    function loadProductos() {
+    filterProducts()
+    
+    function loadProducts() {
         container.innerHTML = ""
 
         productos.forEach(producto => {
-            if (producto.producto.includes(search.value)) {
-                createDom(producto)
-            }
-        });
+        if (producto.producto.includes(search.value)) {
+            loadDom(producto)
+        }
+    });
     }
 
-    function createDom(producto) {
+    function loadDom(producto) {
         let div = document.createElement("div")
         div.innerHTML = `<div>
                             <img src=${producto.imgUrl}>
                             <h1>${producto.producto}</h1>
                             <p>${producto.precio}</p>
-                            <button class="btn" id=${producto.id}>Agregar Producto</button>
-                        </div>`
+                            <button class="btns" id=${producto.id}>Add</button>
+                            </div>`
         container.append(div)
 
-        let btn = document.querySelectorAll(".btn")
-        btn.forEach(boton => {
-            boton.addEventListener("click",addProducts)
+        let btns = document.querySelectorAll(".btns")
+        btns.forEach(btn => {
+            btn.addEventListener("click",addProduct)
         })
     }
 
-
-    function addProducts(e) {
-        let add = productos.find(producto => producto.id == e.target.id)
-        carrito.push(add.precio)
+    function addProduct(e) {
+        let adder = productos.find(producto => producto.id == e.target.id)
+        cart.push(adder)
         
-        let div2 = document.createElement("div")
-        div2.innerHTML = `<div class="flexx">
-                            <h1>producto:${ add.producto} precio:${ add.precio}</h1>
-                            <button class="btnX" id=${add.id}>X</button>
-                        </div>`
-        containerCheck.append(div2)
-
-    
-        let btnX = document.querySelectorAll(".btnX")
-        btnX.forEach(botonX => {
-            botonX.addEventListener("click",deleteProducts)
-        })
-
+        loadCart()
         totalPrice()
     }
-    
 
-    function deleteProducts(e) {
-        let deleteProduct = carrito.find(producto => producto.id == e.target.id)
-        carrito.splice(deleteProduct,1)
-        e.target.parentNode.remove()
+    function loadCart() {
+        containerCheck.innerHTML = ""
         
-        if (carrito.length > 0) {
-            totalPrice()
-        } else {
-            containerTotal.innerHTML = `<h1>Total: $0</h1>`
-        }
+        cart.forEach(producto => {
+            let div = document.createElement("div")
+            div.innerHTML = `<div>
+                                <h1>${producto.producto}</h1>
+                                <p>${producto.precio}</p>
+                                <button class="btnX" id=${producto.id}>X</button>
+                                </div>`
+            containerCheck.append(div)
+        })
+
+        let btnX = document.querySelectorAll(".btnX")
+        btnX.forEach(btn => {
+            btn.addEventListener("click",deleteProduct)
+        })
+    }
+
+    function deleteProduct(e) {
+        let deleteProduct = cart.find(producto => producto.id == e.target.id)
+        cart.splice(cart.indexOf(deleteProduct),1)
+        
+        loadCart()
+        totalPrice()
     }
 
 
     function totalPrice() {
-        if (carrito.length > 0) {
-            var total = carrito.reduce((a,b) => a + b)
-        }
 
-        if (carrito.length == 0) {
-            containerTotal.innerHTML = `<h1>total: 0$</h1>`
-        } else {
-            containerTotal.innerHTML = `<h1>$${total}</h1>`
-        }
+        let total = 0
+        let totalCart = cart.map(price => price.precio)
+
+        totalCart.forEach(tt => {
+            total += tt
+        })
+
+        containerTotal.innerHTML = `<h1>Total: $${total}</h1>`
     }
 
-    function filterPrint(data) {
+    function filterDom(date) {
         container.innerHTML = ""
 
-        data.forEach(producto => {
-            createDom(producto)
-        });
+        date.forEach(dt => {
+            loadDom(dt)
+        })
     }
 
-    function orderProducts() {
-        select.forEach(obj => {
-            obj.addEventListener("change", function() {
-                value = obj.options[obj.selectedIndex].value
+    function filterProducts() {
+        select.forEach(slt => {
+            slt.addEventListener("change", function() {
+                let value = slt.options[slt.selectedIndex].value
                 
                 if (value == "Menor a Mayor") {
-                    let data = productos.sort((a,b) => a.precio - b.precio)
-                    filterPrint(data)
-                } else if  (value == "Mayor a Menor") {
-                    data = productos.sort((a,b) => b.precio - a.precio)
-                    filterPrint(data) 
+                    let view = productos.sort((a,b)=> a.precio - b.precio)
+                    filterDom(view)
+                } else if (value == "Mayor a Menor") {
+                    view = productos.sort((a,b)=> b.precio - a.precio)
+                    filterDom(view)
                 } else if (value == "A - Z") {
-                    data = productos.sort((a,b) => a.producto.localeCompare(b.producto))
-                    filterPrint(data) 
-                } else if(value == "Z - A") {
-                    data = productos.sort((a,b) => b.producto.localeCompare(a.producto))
-                    filterPrint(data) 
+                    view = productos.sort((a,b)=> a.producto.localeCompare(b.producto))
+                    filterDom(view)
+                } else if (value == "Z - A") {
+                    view = productos.sort((a,b)=> b.producto.localeCompare(a.producto))
+                    filterDom(view)
                 }
             })
         })
     }
-})
+});
+ */
+
+
+fetch("./js/data.json")
+.then(response => response.json())
+.then(productos => {
+        
+    const search = document.getElementById("search1")
+    search.addEventListener("input",chargeProductDom)
+    const container = document.getElementById("container")
+    const containerCheck = document.getElementById("containerCheck")
+    const containerTotal = document.getElementById("containerTotal")
+    const select = document.querySelectorAll(".select")
+    let cart = []
+
+
+    chargeProductDom()
+    totalCart()
+    filterProducts()
+
+    function chargeProductDom() {
+        container.innerHTML = ""
+
+        productos.forEach(producto => {
+            if (producto.producto.includes(search.value)) {
+                loadDom(producto)
+            }
+        });
+    }
+
+    function loadDom(producto) {
+        let div = document.createElement("div")
+        div.innerHTML = `<div>
+                            <img src=${producto.imgUrl}>
+                            <h1>${producto.producto}</h1>
+                            <p>${producto.precio}</p>
+                            <button class="btns" id=${producto.id}>Add</button>
+                            </div>`
+        container.append(div)
+
+        let btns = document.querySelectorAll(".btns")
+        btns.forEach(btn => {
+            btn.addEventListener("click",addProductsCart)
+        })
+    }
+
+    function addProductsCart(e) {
+        let add = productos.find(producto => producto.id == e.target.id)
+        cart.push(add)
+
+        loadCart()
+        totalCart()
+    }
+
+    function loadCart() {
+        containerCheck.innerHTML = ""
+
+        cart.forEach(producto => {
+            let div2 = document.createElement("div")
+            div2.innerHTML = `<div>
+                                <h1>${producto.producto}</h1>
+                                <p>${producto.precio}</p>
+                                <button class="btnX" id=${producto.id}>X</button>
+                                </div>`
+            containerCheck.append(div2)
+        })
+
+        let btnX = document.querySelectorAll(".btnX")
+        btnX.forEach(btn => {
+            btn.addEventListener("click",deleteProduct)
+        })
+    }
+
+    function deleteProduct(e) {
+        let delet = cart.find(producto => producto.id == e.target.id)
+
+        cart.splice(cart.indexOf(delet),1)
+
+        loadCart()
+        totalCart()
+    }
+
+    function totalCart() {
+        let prices = cart.map(date => date.precio)
+        let total = 0
+
+        prices.forEach(pr => {
+            total += pr
+        })
+
+        containerTotal.innerHTML = `<h1>Total:$${total}`
+    }
+
+    function filterDom(producto) {
+        container.innerHTML = ""
+
+        producto.forEach(date => {
+            loadDom(date)
+        })
+    }
+
+    function filterProducts() {
+        select.forEach(st => {
+            st.addEventListener("change",function() {
+                let value = st.options[st.selectedIndex].value
+
+                if (value == "Menor a Mayor") {
+                    let finalValue = productos.sort((a,b) => a.precio - b.precio)
+                    filterDom(finalValue)
+                } else if (value == "Mayor a Menor") {
+                    finalValue = productos.sort((a,b) => b.precio - a.precio)
+                    filterDom(finalValue)
+                } else if (value == "A - Z") {
+                    finalValue = productos.sort((a,b) => a.producto.localeCompare(b.producto))
+                    filterDom(finalValue)
+                } else if (value == "Z - A") {
+                    finalValue = productos.sort((a,b) => b.producto.localeCompare(a.producto))
+                    filterDom(finalValue)
+                }
+            })
+        })
+    }
+
+
+
+
+}) 
