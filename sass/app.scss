@@ -1,0 +1,159 @@
+img {
+    max-width: 13vw;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#header {
+    width: 100%;
+    background-color: rgb(126, 220, 252);
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+
+    nav {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        #search1 {
+            height: 30%;
+            border: whitesmoke;
+            padding: .2rem;
+            border-radius: .2rem;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+            i {
+                margin: 0 1rem;
+                font-size: 1.1rem;
+                color: white;
+                cursor: pointer;
+            }
+    
+            li {
+                list-style: none;
+                margin: .5rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+
+                color: rgb(255, 255, 255);
+            }
+        }
+    }
+}
+
+.viewcart {
+    display: none;
+}
+
+.active2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    right: 2.5rem;
+    top: 3.2rem;
+    border-radius: .5rem 0 .5rem .5rem;
+    padding: 1rem;
+    border: 1px solid rgba(141, 141, 141, 0.281);
+
+    &::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background-color: rgb(255, 255, 255);
+        right: -1;
+        border-radius: 1rem;
+        top: -2;
+        position: absolute;
+    }
+
+    #containerTotal {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .deleteAll {
+        padding: .2rem;
+        width: 70%;
+    }
+}
+
+.carting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        width: 1rem;
+        margin: 0 0 0 1rem;
+        background-color: transparent;
+        border: none;
+        font-size: .9rem;
+        font-weight: 600;
+        color: rgba(255, 0, 0, 0.432);
+    }
+}
+
+.classCart {
+    padding: .7rem;
+    
+    h1 {
+        font-size: 1.2rem;
+        color: rgba(0, 0, 0, 0.664);
+    }
+}
+
+.btnX,.deleteAll {
+    cursor: pointer;
+}
+
+main {
+    width: 90%;
+    border: 1px solid ;
+    margin: 1rem;
+    padding: 1rem;
+
+    display: flex;
+    justify-content: space-evenly;
+
+    #container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .search {
+        display: flex;
+        flex-direction: column;
+
+        select {
+            margin: .5rem 0;
+        }
+    }
+}
+

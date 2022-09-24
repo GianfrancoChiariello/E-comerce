@@ -4,12 +4,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="app.css">
     <script defer src="./app.js"></script>
+    <script src="https://kit.fontawesome.com/5b7486fe1b.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-comerce</title>
 </head>
 <body>
+    <header id="header">
+        <img src="#" alt="logo">
+        <nav id="nav">
+            <input id="search1" type="text" placeholder="Search">
+            <ul>
+                <li>Inicio</li>
+                <li>Productos</li>
+                <li>Contacto</li>
+                <i id="buttonCart" class="fa-solid fa-cart-shopping"></i>
+            </ul>
+        </nav>
+        <div id="viewcart" class="viewcart">
+            <div id="containerCheck"></div>
+            <div id="containerTotal"></div>
+            <button class="deleteAll">Delete Cart</button>
+        </div>
+    </header>
+<main>
     <div class="search">
-        <input id="search1" type="text" placeholder="Buscar producto">
         <br>
         <span>Filtros:</span>
         <select class="select">
@@ -22,11 +40,15 @@
             <option value="A - Z">A - Z</option>
             <option value="Z - A">Z - A</option>
         </select>
-
+        <select class="select">
+            <option selected disabled hidden>Categoria</option>
+            <option value="A - Z">Futbol</option>
+            <option value="Z - A">Skate</option>
+            <option value="Z - A">Fitness</option>
+            <option value="Z - A">Running</option>
+        </select>
     </div>
     <div id="container"></div>
-    <div id="containerCheck"></div>
-    <div id="containerTotal"></div>
-    <button class="deleteAll">Delete Cart</button>
+</main>
 </body>
 </html>

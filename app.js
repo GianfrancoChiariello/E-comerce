@@ -379,6 +379,11 @@ fetch('./js/data.json')
 .then(response => response.json())
 .then(productos => {
     
+    let viewcart = document.getElementById("viewcart")
+    let buttonCart = document.getElementById("buttonCart")
+    buttonCart.addEventListener("click", () => {
+        viewcart.classList.toggle("active2")
+    })
     let cart = []
     let search = document.getElementById("search1")
     search.addEventListener("input",loadProducts)
@@ -407,6 +412,10 @@ fetch('./js/data.json')
     totalCart()
     filterProducts()
 
+    function capitalizarPrimeraLetra(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     function loadProducts() {
         container.innerHTML = ""
 
@@ -421,7 +430,7 @@ fetch('./js/data.json')
         let div = document.createElement("div")
         div.innerHTML = `<div>
                             <img src=${producto.imgUrl}>
-                            <h1>${producto.producto}</h1>
+                            <h1>${capitalizarPrimeraLetra(producto.producto)}</h1>
                             <p>$${producto.precio}</p>
                             <p>Stock:${producto.stock}</p>
                             <input class="inputS" placeholder="1" min="1" value="1"  type="number">
@@ -497,10 +506,12 @@ fetch('./js/data.json')
         
         cart.forEach(producto => {
             let div2 = document.createElement("div")
-            div2.innerHTML = `<div>
+            div2.innerHTML = `<div class="classCart">
+                                <div  class="carting">
                                 <h1>Producto:${producto.producto},Precio:${producto.precio}</h1>
-                                <p>Unidades:${producto.cantidad}</p>
                                 <button class="btnX" id=${producto.id}>X</button>
+                                </div>
+                                <p>Unidades:${producto.cantidad}</p>
                                 </div>`
             containerCheck.append(div2)
         })
