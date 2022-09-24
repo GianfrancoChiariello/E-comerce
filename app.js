@@ -399,7 +399,7 @@ fetch('./js/data.json')
         totalCart()
         localStorage.setItem("cart",JSON.stringify(cart))
     })
-    
+
 
     if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"))
@@ -428,6 +428,7 @@ fetch('./js/data.json')
 
     function loadDom(producto) {
         let div = document.createElement("div")
+        
         div.innerHTML = `<div>
                             <img src=${producto.imgUrl}>
                             <h1>${capitalizarPrimeraLetra(producto.producto)}</h1>
@@ -442,7 +443,6 @@ fetch('./js/data.json')
         btnS.forEach(btn => {
             btn.addEventListener("click",addProduct)
         })
-
     }
 
 
@@ -460,11 +460,6 @@ fetch('./js/data.json')
             } else {
                 add.totalPrice = add.precio * add.cantidad
             }
-
-            loadCart()
-            totalCart()
-            loadProducts()
-        
         } else if (add.stock >= 1 && input <= add.stock) {
             add.cantidad++
             add.stock = add.stock - input
@@ -472,16 +467,21 @@ fetch('./js/data.json')
             if (add.cantidad >= 0) {
                 add.totalPrice = add.precio * add.cantidad
             }
-
-            if (add.stock == 0) {
-                alert("No hay mas Stock de " + add.producto)
-            }
-
-            loadCart()
-            totalCart()
-            loadProducts()
         }
 
+        if (add.stock <= 0) {
+            Swal.fire({
+                position: 'bottom-end',
+                title: 'No hay Stock',
+                showConfirmButton: false,
+                timer: 1000,
+                width: "15rem",
+            })
+        }
+
+        loadCart()
+        totalCart()
+        loadProducts()
         localStorage.setItem("cart",JSON.stringify(cart))
     }
 
@@ -508,7 +508,7 @@ fetch('./js/data.json')
             let div2 = document.createElement("div")
             div2.innerHTML = `<div class="classCart">
                                 <div  class="carting">
-                                <h1>Producto:${producto.producto},Precio:${producto.precio}</h1>
+                                <h1>Producto: ${producto.producto}, Precio: $${producto.precio}</h1>
                                 <button class="btnX" id=${producto.id}>X</button>
                                 </div>
                                 <p>Unidades:${producto.cantidad}</p>
@@ -518,7 +518,20 @@ fetch('./js/data.json')
 
         let btnX = document.querySelectorAll(".btnX")
         btnX.forEach(btn => {
-            btn.addEventListener("click",deleteProduct)
+            btn.addEventListener("click", (e) => {
+                Swal.fire({
+                    title: 'Desea eliminar?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        deleteProduct(e)
+                    }
+                })
+            })
         })
     }
 

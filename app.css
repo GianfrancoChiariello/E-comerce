@@ -25,6 +25,9 @@ body {
   align-items: center;
   padding: 1rem;
 }
+#header img {
+  width: 3vw;
+}
 #header nav {
   display: flex;
   align-items: center;
@@ -137,6 +140,14 @@ main .search {
 }
 main .search select {
   margin: 0.5rem 0;
+}
+
+.inputS {
+  width: 2rem;
+}
+
+h1 {
+  font-size: 1.3rem;
 }
 
 /*# sourceMappingURL=app.css.map */
